@@ -128,6 +128,9 @@ class BlockEntityPistonArm extends Spawnable {
                             $this->breakBlocks[] = new IntTag("", $pos->getX());
                             $this->breakBlocks[] = new IntTag("", $pos->getY());
                             $this->breakBlocks[] = new IntTag("", $pos->getZ());
+                        }elseif($this->isBorder($block)){
+                            return true;
+                        }
                         } else {
                             $this->getLevel()->setBlock($pos, new BlockMoving());
                             $tile = $this->getLevel()->getTile($block);
@@ -347,6 +350,10 @@ class BlockEntityPistonArm extends Spawnable {
 
         return true;
     }
+
+private function isBorder(Block $block){
+ return in_array($block->getId(), 10);
+}
 
     private function updateAroundRedstone(Vector3 $pos) : void {
         $direction = Facing::ALL;
